@@ -1,9 +1,16 @@
 #include <iostream>
+#include <fstream>
 using namespace std;
 
 int main()
 {
-int ships = 2;
+ifstream inFile;
+inFile.open("data.txt");
+string line;
+
+
+getline(inFile, line);
+
 
 
 return 0;  
