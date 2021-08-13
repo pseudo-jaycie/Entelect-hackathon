@@ -3,7 +3,7 @@ using namespace std;
 
 int main()
 {
-int ships = 2;
+int ships = 88;
 
 
 return 0;  
