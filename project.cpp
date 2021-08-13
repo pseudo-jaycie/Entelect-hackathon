@@ -1,10 +1,19 @@
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 int main()
 {
-int ships = 88;
-//afjhbvnjAGLBFNAAAAAAAABHSKJEWFWEF
+ifstream inFile;
+inFile.open("data.txt");
+string line;
+
+
+getline(inFile, line);
+
+
 
 return 0;  
 }
