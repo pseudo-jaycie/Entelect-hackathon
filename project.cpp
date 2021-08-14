@@ -172,19 +172,19 @@ string shipPath(int k, resourceCluster clus[4][1000])
 {
     int i = 0;
     string out = "";
-    if (k == 1)
+    if (k == 0)
     {
         i = one;
     }
-    else if (k == 2)
+    else if (k == 1)
     {
         i = two;
     }
-    else if (k == 3)
+    else if (k == 2)
     {
         i = three;
     }
-    else if (k == 4)
+    else if (k == 3)
     {
         i = five;
     }
@@ -194,19 +194,19 @@ string shipPath(int k, resourceCluster clus[4][1000])
 
         i++;
     }
-    if (k == 1)
+    if (k == 0)
     {
         one = i;
     }
-    else if (k == 2)
+    else if (k == 1)
     {
         two = i;
     }
-    else if (k == 3)
+    else if (k == 2)
     {
         three = i;
     }
-    else if (k == 4)
+    else if (k == 3)
     {
         five = i;
     }
