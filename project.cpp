@@ -15,34 +15,34 @@ int ResourceQuota[10];
 //Intput file
 getline(inFile, line);
 //First line
-    ur = std::stoi(line.substr(0,line.find('|'));
+    ur = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
-    s = std::stoi(line.substr(0,line.find('|'));
+    s = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
-    c = std::stoi(line.substr(0,line.find('|'));
+    c = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);  
-    ur = std::stoi(line.substr(0,line.find('|'));
+    ur = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
-    l = std::stoi(line.substr(0,line.find('|'));
+    l = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
-    t = std::stoi(line.substr(0,line.find('|'));
+    t = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
     nq = std::stoi(line.substr(0,line.size()));
 
 
 getline(inFile, line);
 //Second line
-for (int i = 0, i < (ur-1), i++)
+for (int i = 0; i < (ur-1); i++)
 {
     line.erase(0,line.find(',')+1);
-    NumResClus[i] = std::stoi(line.substr(0,line.find('|'));
+    NumResClus[i] = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
 }
 NumResClus[ur-1] = std::stoi(line.substr(0,line.size()));
 
 //Resource quota,ur lines
 getline(inFile, line);
-for (int i = 0, i < 10, i++)
+for (int i = 0; i < 10; i++)
 {
     line.erase(0,line.find('|')+1);
     ResourceQuota[i] = std::stoi("0." + line.substr(0,line.size()));
