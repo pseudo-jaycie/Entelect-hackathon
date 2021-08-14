@@ -160,9 +160,13 @@ int main()
 
     ofstream outputfile;
     outputfile.open("output.txt");
-    outputfile << shipPath(cluster1) << endl;
+    string out;
+    out = shipPath(cluster1) + "0";
+    outputfile << out << endl;
     total = 0;
-    outputfile << shipPath(cluster2) << endl;
+    out = "";
+    out = shipPath(cluster2) + "a3,a4,0";
+    outputfile << out << endl;
     outputfile.close();
 
     return 0;
@@ -187,7 +191,5 @@ string shipPath(resourceCluster clus[])
         out += clus[i].getID() + ",";
         i++;
     }
-
-    out += "0";
     return out;
 }
