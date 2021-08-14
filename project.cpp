@@ -2,6 +2,9 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <rC.h>
+#include <resourceCluster.cpp>
+
 using namespace std;
 
 int main()
