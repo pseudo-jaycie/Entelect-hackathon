@@ -3,6 +3,9 @@
 #include <fstream>
 #include <sstream>
 using namespace std;
+//Check if ship has spaces left
+bool checkshipcapcity(int,int);
+
 
 int main()
 {
@@ -29,7 +32,6 @@ getline(inFile, line);
     line.erase(0,line.find('|')+1);
     nq = std::stoi(line.substr(0,line.size()));
 
-
 getline(inFile, line);
 //Second line
 for (int i = 0; i < (ur-1); i++)
@@ -37,17 +39,30 @@ for (int i = 0; i < (ur-1); i++)
     line.erase(0,line.find(',')+1);
     NumResClus[i] = std::stoi(line.substr(0,line.find('|')));
     line.erase(0,line.find('|')+1);
+    
 }
 NumResClus[ur-1] = std::stoi(line.substr(0,line.size()));
 
 //Resource quota,ur lines
 getline(inFile, line);
-for (int i = 0; i < 10; i++)
+for (int i = 0; i < nq; i++)
 {
     line.erase(0,line.find('|')+1);
-    ResourceQuota[i] = std::stoi("0." + line.substr(0,line.size()));
+    ResourceQuota[i] = std::stoi(line.substr(0,line.size()));
+   getline(inFile, line);
 }
-getline(inFile, line);
+
 
 return 0;  
+}
+
+
+bool checkshipcapcity(int c,int a)//Ship capcity and number of resources in cluster
+{
+ static int total;
+ total =+ a;
+ if (total >= c)
+ return false;
+ else
+ return true;
 }
