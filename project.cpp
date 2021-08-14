@@ -166,6 +166,12 @@ for (int i = 0; i < numResClus[0]; i++)
     cluster2[i] = resourceCluster(type, id, x, y, z, num);
 }
 
+ofstream outputfile;
+outputfile.open("output.txt")
+outputfile << shippath(cluster1) << endl;
+outputfile << shippath(cluster2) << endl;
+outputfile.close();
+
 
 return 0;  
 }
