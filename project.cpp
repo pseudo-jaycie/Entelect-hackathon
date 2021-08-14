@@ -7,6 +7,7 @@ using namespace std;
 //Check if ship has spaces left
 bool checkshipcapcity(int, int);
 int total = 0;
+int one, two, three, five;
 
 class resourceCluster
 {
@@ -65,12 +66,13 @@ int resourceCluster::getNum()
 int main()
 {
     ifstream inFile;
-    inFile.open("Grid1.txt");
+    inFile.open("Grid2.txt");
     string line;
     int ur = 0, s = 0, c = 0, l = 0, t = 0, nq = 0;
     int numResClus[10];
     int resourceQuota[10];
-    string shipPath(resourceCluster clus[]);
+
+    string shipPath(int k, resourceCluster clus[4][1000]);
     //Intput file
     getline(inFile, line);
     //First line
@@ -107,89 +109,107 @@ int main()
     }
 
     // resource 1
-    getline(inFile, line);
-    resourceCluster cluster1[5];
-    string id = "";
-    int x, y, z, num;
-    string section = "";
-    int type = stoi(line.substr(0, line.find('|')));
-    line.erase(0, line.find('|') + 1);
-    for (int i = 0; i < 5; i++)
+    resourceCluster cluster[4][1000];
+    for (int j = 0; j < 4; j++)
     {
-        section = line.substr(0, line.find('|'));
+        getline(inFile, line);
+        // cout << line << endl;
+        string id = "";
+        int x, y, z, num;
+        string section = "";
+        int type = stoi(line.substr(0, line.find('|')));
         line.erase(0, line.find('|') + 1);
+        for (int i = 0; i < 1000; i++)
+        {
+            section = line.substr(0, line.find('|'));
+            line.erase(0, line.find('|') + 1);
 
-        id = section.substr(0, section.find(','));
-        section.erase(0, section.find(',') + 1);
-        x = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        y = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        z = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        num = stoi(section.substr(0, section.find(',')));
-        section.erase(0, line.find(',') + 1);
+            id = section.substr(0, section.find(','));
+            section.erase(0, section.find(',') + 1);
+            x = stoi(section.substr(0, section.find(',')));
+            section.erase(0, section.find(',') + 1);
+            y = stoi(section.substr(0, section.find(',')));
+            section.erase(0, section.find(',') + 1);
+            z = stoi(section.substr(0, section.find(',')));
+            section.erase(0, section.find(',') + 1);
+            num = stoi(section.substr(0, section.find(',')));
+            section.erase(0, line.find(',') + 1);
 
-        cluster1[i] = resourceCluster(type, id, x, y, z, num);
-    }
-    // resource 2
-    getline(inFile, line);
-    resourceCluster cluster2[5];
-    id = "";
-    section = "";
-    type = stoi(line.substr(0, line.find('|')));
-    line.erase(0, line.find('|') + 1);
-    for (int i = 0; i < numResClus[0]; i++)
-    {
-        section = line.substr(0, line.find('|'));
-        line.erase(0, line.find('|') + 1);
-
-        id = section.substr(0, section.find(','));
-        section.erase(0, section.find(',') + 1);
-        x = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        y = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        z = stoi(section.substr(0, section.find(',')));
-        section.erase(0, section.find(',') + 1);
-        num = stoi(section.substr(0, section.find(',')));
-        section.erase(0, line.find(',') + 1);
-
-        cluster2[i] = resourceCluster(type, id, x, y, z, num);
+            cluster[j][i] = resourceCluster(type, id, x, y, z, num);
+            
+        }
     }
 
     ofstream outputfile;
     outputfile.open("output.txt");
     string out;
-    out = shipPath(cluster1) + "0";
-    outputfile << out << endl;
-    total = 0;
-    out = "";
-    out = shipPath(cluster2) + "a3,a4,0";
-    outputfile << out << endl;
+    for (int j = 0; j < 5; j++)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            out = shipPath(i, cluster) + "0";
+            outputfile << out << endl;
+            out = "";
+        }
+    }
     outputfile.close();
-
     return 0;
 }
-
 
 bool checkshipcapcity(int c, int a) //Ship capcity and number of resources in cluster
 {
     total += a;
     if (total >= c)
+    {
+        total = 0;
         return false;
+    }
     else
         return true;
 }
 
-string shipPath(resourceCluster clus[])
+string shipPath(int k, resourceCluster clus[4][1000])
 {
-    string out = "";
     int i = 0;
-    while (checkshipcapcity(200, clus[i].getNum()))
+    string out = "";
+    if (k == 1)
     {
-        out += clus[i].getID() + ",";
+        i = one;
+    }
+    else if (k == 2)
+    {
+        i = two;
+    }
+    else if (k == 3)
+    {
+        i = three;
+    }
+    else if (k == 4)
+    {
+        i = five;
+    }
+    while (checkshipcapcity(400000, 2000))
+    {
+        out += clus[k][i].getID() + ",";
+
         i++;
     }
+    if (k == 1)
+    {
+        one = i;
+    }
+    else if (k == 2)
+    {
+        two = i;
+    }
+    else if (k == 3)
+    {
+        three = i;
+    }
+    else if (k == 4)
+    {
+        five = i;
+    }
+
     return out;
 }
