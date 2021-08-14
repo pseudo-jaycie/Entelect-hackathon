@@ -5,8 +5,8 @@
 
 using namespace std;
 //Check if ship has spaces left
-bool checkshipcapcity(int,int);
-
+    bool checkshipcapcity(int, int);
+    int total = 0;
 
 class resourceCluster
 {
@@ -24,13 +24,12 @@ public:
     int getY();
     int getZ();
     int getNum();
-    
 };
 resourceCluster::resourceCluster()
 {
-
 }
-resourceCluster::resourceCluster(int t, string rID, int X, int Y, int Z, int rNum){
+resourceCluster::resourceCluster(int t, string rID, int X, int Y, int Z, int rNum)
+{
     type = t;
     resourceID = rID;
     x = X;
@@ -63,120 +62,128 @@ int resourceCluster::getNum()
     return resourceNum;
 }
 
-
 int main()
 {
-ifstream inFile;
-inFile.open("Grid1.txt");
-string line;
-int ur = 0,s = 0,c= 0,l=0,t=0,nq =0;
-int numResClus[10];
-int resourceQuota[10];
-
-//Intput file
-getline(inFile, line);
-//First line
-    ur = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    s = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    c = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);  
-    ur = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    l = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    t = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    nq = std::stoi(line.substr(0,line.size()));
-
-getline(inFile, line);
-//Second line
-for (int i = 0; i < (ur-1); i++)
-{
-    line.erase(0,line.find(',')+1);
-    numResClus[i] = std::stoi(line.substr(0,line.find('|')));
-    line.erase(0,line.find('|')+1);
-    
-}
-numResClus[ur-1] = std::stoi(line.substr(0,line.size()));
-
-//Resource quota,ur lines
-getline(inFile, line);
-for (int i = 0; i < nq; i++)
-{
-    line.erase(0,line.find('|')+1);
-    resourceQuota[i] = std::stoi("0." + line.substr(0,line.size()));
+    ifstream inFile;
+    inFile.open("Grid1.txt");
+    string line;
+    int ur = 0, s = 0, c = 0, l = 0, t = 0, nq = 0;
+    int numResClus[10];
+    int resourceQuota[10];
+    string shipPath(resourceCluster clus[]);
+    //Intput file
     getline(inFile, line);
+    //First line
+    ur = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    s = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    c = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    ur = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    l = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    t = std::stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    nq = std::stoi(line.substr(0, line.size()));
+
+    getline(inFile, line);
+    //Second line
+    for (int i = 0; i < (ur - 1); i++)
+    {
+        line.erase(0, line.find(',') + 1);
+        numResClus[i] = std::stoi(line.substr(0, line.find('|')));
+        line.erase(0, line.find('|') + 1);
+    }
+    numResClus[ur - 1] = std::stoi(line.substr(0, line.size()));
+
+    //Resource quota,ur lines
+    for (int i = 0; i < nq; i++)
+    {
+        line.erase(0, line.find('|') + 1);
+        resourceQuota[i] = std::stoi("0." + line.substr(0, line.size()));
+        getline(inFile, line);
+    }
+
+    // resource 1
+    getline(inFile, line);
+    resourceCluster cluster1[5];
+    string id = "";
+    int x, y, z, num;
+    string section = "";
+    int type = stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    for (int i = 0; i < 5; i++)
+    {
+        section = line.substr(0, line.find('|'));
+        line.erase(0, line.find('|') + 1);
+
+        id = section.substr(0, section.find(','));
+        section.erase(0, section.find(',') + 1);
+        x = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        y = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        z = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        num = stoi(section.substr(0, section.find(',')));
+        section.erase(0, line.find(',') + 1);
+
+        cluster1[i] = resourceCluster(type, id, x, y, z, num);
+    }
+    // resource 2
+    getline(inFile, line);
+    resourceCluster cluster2[5];
+    id = "";
+    section = "";
+    type = stoi(line.substr(0, line.find('|')));
+    line.erase(0, line.find('|') + 1);
+    for (int i = 0; i < numResClus[0]; i++)
+    {
+        section = line.substr(0, line.find('|'));
+        line.erase(0, line.find('|') + 1);
+
+        id = section.substr(0, section.find(','));
+        section.erase(0, section.find(',') + 1);
+        x = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        y = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        z = stoi(section.substr(0, section.find(',')));
+        section.erase(0, section.find(',') + 1);
+        num = stoi(section.substr(0, section.find(',')));
+        section.erase(0, line.find(',') + 1);
+
+        cluster2[i] = resourceCluster(type, id, x, y, z, num);
+    }
+
+    cout << shipPath(cluster1) << endl;
+    total = 0;
+    return 0;
 }
 
-
-
-// resource 1
-getline(inFile, line);
-resourceCluster cluster1[5];
-string id = "";
-int x, y, z, num;
-string section = "";
-int type = stoi(line.substr(0,line.find('|')));
-line.erase(0,line.find('|')+1);
-for (int i = 0; i < numResClus[0]; i++)
+bool checkshipcapcity(int c, int a) //Ship capcity and number of resources in cluster
 {
-    section = line.substr(0,line.find('|'));
-    line.erase(0,line.find('|')+1);
-
-    cout << section << endl;
-
-    id = section.substr(0,section.find(','));
-    section.erase(0,section.find(',')+1);
-    x = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    y = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    z = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    num = stoi(section.substr(0,section.find(',')));
-    section.erase(0,line.find(',')+1);
-    
-    cluster1[i] = resourceCluster(type, id, x, y, z, num);
+    total += a;
+    cout << total << endl;
+    if (total >= c)
+        return false;
+    else
+        return true;
 }
-// resource 2
-getline(inFile, line);
-resourceCluster cluster2[5];
-id = "";
-section = "";
-type = stoi(line.substr(0,line.find('|')));
-line.erase(0,line.find('|')+1);
-for (int i = 0; i < numResClus[0]; i++)
+
+string shipPath(resourceCluster clus[])
 {
-    section = line.substr(0,line.find('|'));
-    line.erase(0,line.find('|')+1);
+    string out = "";
+    int i = 0;
+    while (checkshipcapcity(200, clus[i].getNum()))
+    {
+        // cout << clus[i].getNum() << endl;
+        out += clus[i].getID() + ",";
+        i++;
+    }
 
-    id = section.substr(0,section.find(','));
-    section.erase(0,section.find(',')+1);
-    x = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    y = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    z = stoi(section.substr(0,section.find(',')));
-    section.erase(0,section.find(',')+1);
-    num = stoi(section.substr(0,section.find(',')));
-    section.erase(0,line.find(',')+1);
-    
-    cluster2[i] = resourceCluster(type, id, x, y, z, num);
-}
-
-
-return 0;  
-}
-
-
-bool checkshipcapcity(int c,int a)//Ship capcity and number of resources in cluster
-{
- static int total;
- total =+ a;
- if (total >= c)
- return false;
- else
- return true;
+    out += "0";
+    return out;
 }
