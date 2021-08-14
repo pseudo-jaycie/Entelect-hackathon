@@ -5,8 +5,8 @@
 
 using namespace std;
 //Check if ship has spaces left
-    bool checkshipcapcity(int, int);
-    int total = 0;
+bool checkshipcapcity(int, int);
+int total = 0;
 
 class resourceCluster
 {
@@ -158,15 +158,20 @@ int main()
         cluster2[i] = resourceCluster(type, id, x, y, z, num);
     }
 
-    cout << shipPath(cluster1) << endl;
+    ofstream outputfile;
+    outputfile.open("output.txt");
+    outputfile << shipPath(cluster1) << endl;
     total = 0;
+    outputfile << shipPath(cluster2) << endl;
+    outputfile.close();
+
     return 0;
 }
+
 
 bool checkshipcapcity(int c, int a) //Ship capcity and number of resources in cluster
 {
     total += a;
-    cout << total << endl;
     if (total >= c)
         return false;
     else
@@ -179,7 +184,6 @@ string shipPath(resourceCluster clus[])
     int i = 0;
     while (checkshipcapcity(200, clus[i].getNum()))
     {
-        // cout << clus[i].getNum() << endl;
         out += clus[i].getID() + ",";
         i++;
     }
